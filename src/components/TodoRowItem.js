@@ -1,6 +1,6 @@
 function TodoRowItem(){
     const rowNumber = 1;
-    const rowDescription = 'Devlopping ! ';
+    const rowDescription = 'Devlopping with React! ';
     const rowAssigned = 'Mosine';
     return (
         <tr>
