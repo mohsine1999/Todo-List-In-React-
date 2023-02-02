@@ -4,6 +4,9 @@ import React, {useState} from 'react';
 import NewTodoForm from './components/NewTodoForm';
 
 function App() {
+
+const [showAddTodoForm, setShowTodoForm] = useState(false); 
+
  const [ todos , setTodos ] = useState([
     {rowNumber: 1,rowDescription: 'Feed me', rowAssigned: 'EL MEHFI'},
     {rowNumber: 2,rowDescription: 'Playing', rowAssigned: 'Oussama'},
@@ -11,15 +14,26 @@ function App() {
     {rowNumber: 4,rowDescription: 'Soccer', rowAssigned: 'Mosine'}
   ])
   const addTodo = (description,assigned) => {
+    let rowNumber = 0;
     if (todos.length > 0) {
+      rowNumber = todos[todos.length - 1].rowNumber + 1;
+    } else{
+      rowNumber = 1;
+    }
       const newTodo = {
-        rowNumber : todos.length + 1,
+        rowNumber : rowNumber,
         rowDescription : description,
         rowAssigned : assigned
       };
       setTodos(todos => [...todos, newTodo])
       console.log(todos);
-    }
+  }
+
+  const deleteTodo = (deleteTodoRow) => {
+    let filtered = todos.filter( function (value){
+      return value.rowNumber !== deleteTodoRow;
+    });
+    setTodos(filtered);
   }
   return (
     <div className='mt-5 container'>
@@ -28,11 +42,16 @@ function App() {
           Your Todo's
         </div>
         <div className='card-body'>
-          <TodoTable todos = {todos}/>
-          <button className='btn btn-danger' onClick={addTodo}>
-            Add new Todo
+          <TodoTable todos = {todos} deleteTodo={deleteTodo}/>
+          <button onClick={() => setShowTodoForm(!showAddTodoForm) }
+                    type="button" 
+                    className="btn btn-success mt-3"                
+                >
+                    {showAddTodoForm ? 'Close New Todo' : 'New Todo'}
           </button>
+          {showAddTodoForm &&
           <NewTodoForm addTodo={addTodo}/>
+          }
         </div>
       </div>
     </div>
