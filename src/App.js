@@ -1,22 +1,23 @@
 import './App.css';
-import TodoRowItem from './components/TodoRowItem';
 import TodoTable from './components/TodoTable';
+import React, {useState} from 'react';
+import NewTodoForm from './components/NewTodoForm';
 
 function App() {
-  const todos = [
-    {rowNumber: 1,rowDescription: 'Feed me', rowAssigned: 'Mohsine'},
+ const [ todos , setTodos ] = useState([
+    {rowNumber: 1,rowDescription: 'Feed me', rowAssigned: 'EL MEHFI'},
     {rowNumber: 2,rowDescription: 'Playing', rowAssigned: 'Oussama'},
     {rowNumber: 3,rowDescription: 'Coding', rowAssigned: 'Mohsine'},
     {rowNumber: 4,rowDescription: 'Soccer', rowAssigned: 'Mosine'}
-  ]
-  const addTodo = () => {
+  ])
+  const addTodo = (description,assigned) => {
     if (todos.length > 0) {
       const newTodo = {
         rowNumber : todos.length + 1,
-        rowDescription : 'New Todo',
-        rowAssigned : 'User Three'
+        rowDescription : description,
+        rowAssigned : assigned
       };
-      todos.push(newTodo);
+      setTodos(todos => [...todos, newTodo])
       console.log(todos);
     }
   }
@@ -31,6 +32,7 @@ function App() {
           <button className='btn btn-danger' onClick={addTodo}>
             Add new Todo
           </button>
+          <NewTodoForm addTodo={addTodo}/>
         </div>
       </div>
     </div>
