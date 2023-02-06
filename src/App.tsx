@@ -1,9 +1,9 @@
 import './App.css';
-import TodoTable from './components/TodoTable';
+import {TodoTable} from './components/TodoTable';
 import React, {useState} from 'react';
-import NewTodoForm from './components/NewTodoForm';
+import {NewTodoForm} from './components/NewTodoForm';
 
-function App() {
+export const App = () => {
 
 const [showAddTodoForm, setShowTodoForm] = useState(false); 
 
@@ -13,7 +13,7 @@ const [showAddTodoForm, setShowTodoForm] = useState(false);
     {rowNumber: 3,rowDescription: 'Coding', rowAssigned: 'Mohsine'},
     {rowNumber: 4,rowDescription: 'Soccer', rowAssigned: 'Mosine'}
   ])
-  const addTodo = (description,assigned) => {
+  const addTodo = (description: string,assigned: string) => {
     let rowNumber = 0;
     if (todos.length > 0) {
       rowNumber = todos[todos.length - 1].rowNumber + 1;
@@ -29,7 +29,7 @@ const [showAddTodoForm, setShowTodoForm] = useState(false);
       console.log(todos);
   }
 
-  const deleteTodo = (deleteTodoRow) => {
+  const deleteTodo = (deleteTodoRow : number) => {
     let filtered = todos.filter( function (value){
       return value.rowNumber !== deleteTodoRow;
     });
@@ -43,11 +43,12 @@ const [showAddTodoForm, setShowTodoForm] = useState(false);
         </div>
         <div className='card-body'>
           <TodoTable todos = {todos} deleteTodo={deleteTodo}/>
-          <button onClick={() => setShowTodoForm(!showAddTodoForm) }
-                    type="button" 
-                    className="btn btn-success mt-3"                
-                >
-                    {showAddTodoForm ? 'Close New Todo' : 'New Todo'}
+          <button 
+          onClick={() => setShowTodoForm(!showAddTodoForm) }
+          type="button" 
+          className="btn btn-success mt-3"                
+          >
+          {showAddTodoForm ? 'Close New Todo' : 'New Todo'}
           </button>
           {showAddTodoForm &&
           <NewTodoForm addTodo={addTodo}/>
@@ -58,4 +59,4 @@ const [showAddTodoForm, setShowTodoForm] = useState(false);
   );
 }
 
-export default App;
+
